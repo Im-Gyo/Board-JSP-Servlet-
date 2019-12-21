@@ -9,7 +9,7 @@ public class BWriteCommand implements BCommand {
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String bName = request.getParameter("bName");
 		String bTitle = request.getParameter("bTitle");
-		String bContent = request.getParameter("bComtent");
+		String bContent = request.getParameter("bContent");
 		
 		BDao dao = new BDao();
 		dao.write(bName, bTitle, bContent);

@@ -57,7 +57,7 @@ public class BFrontController extends HttpServlet {
 		String conPath = request.getContextPath();
 		String com = uri.substring(conPath.length());
 
-		if (com.equals("/write_view.do")) {
+		if (com.equals("/write_view.do")) {			//컨텍스트패스로 잘라낸 값
 			viewPage = "write_view.jsp";
 		} else if (com.equals("/write.do")) {
 			command = new BWriteCommand();
