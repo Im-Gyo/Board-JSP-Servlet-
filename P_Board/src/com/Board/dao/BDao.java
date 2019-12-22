@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+
+import com.Board.dto.BDto;
 
 public class BDao {
 	/* Connection con = null;
@@ -46,4 +50,45 @@ public class BDao {
 			}
 		}
 	}
+	
+	public ArrayList<BDto> list() {
+		
+		ArrayList<BDto> dtos = new ArrayList<BDto>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DriverManager.getConnection(url, user, pw);
+			String query = "select bId, bName, bTitle, bContent, bDate, bHit, bStep, bIndent, bStep asc";
+			pstmt = con.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int bId = rs.getInt("bId");
+				String bName = rs.getString("bName");
+				String bTitle = rs.getString("bTitle");
+				String bContent = rs.getString("bContent");
+				Timestamp bDate = rs.getTimestamp("bDate");
+				int bHit = rs.getInt("bHit");
+				int bStep = rs.getInt("bStep");
+				int bIndent = rs.getInt("bIndent");
+				
+				BDto dto = new BDto(bId, bName, bTitle, bContent, bDate, bHit, bStep, bIndent);
+				dtos.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return dtos;
+	}
+
 }
