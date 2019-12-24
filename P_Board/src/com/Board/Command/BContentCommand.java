@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.Board.dao.BDao;
+import com.Board.dto.BDto;
 
 public class BContentCommand implements BCommand{
 	@Override
