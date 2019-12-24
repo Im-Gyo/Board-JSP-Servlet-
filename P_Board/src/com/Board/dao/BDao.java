@@ -91,4 +91,106 @@ public class BDao {
 		return dtos;
 	}
 
+	public BDto contentView(String strID) {
+		upHit(strID);
+		
+		BDto dto = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DriverManager.getConnection(url, user, pw);
+			String query = "select * from mvc_board2 where bId = ? ";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,  Integer.parseInt(strID));
+			rs = pstmt.executeQuery();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+		}
+		return dto;
+	}
+	
+	public void modify(String bId, String bName, String bTitle, String bContent) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DriverManager.getConnection(url, user, pw);
+			String query = "update mvc_board2 set bName = ?, bTitle = ?, bContent = ? where bId = ?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, bName);
+			pstmt.setString(2, bTitle);
+			pstmt.setString(1, bContent);
+			pstmt.setInt(4, Integer.parseInt(bId));
+			int n = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+		}
+	}
+	
+	public void delete(String bId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DriverManager.getConnection(url, user, pw);
+			String query = "delete from mvc_board2 where bId = ?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(bId));
+			int n = pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+		}
+	}
+	
+	private void upHit(String bId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DriverManager.getConnection(url, user, pw);
+			String query = "update mvc_board2 set bHit = bHit + 1 where bId = ?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, Integer.parseInt(bId));
+			int n = pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				if(con != null) con.close();
+				if(pstmt != null) pstmt.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+		}
+	}
 }
