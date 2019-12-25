@@ -170,6 +170,36 @@ public class BDao {
 		}
 	}
 	
+	public void reply(String bId, String bName, String bTitle, String bContent, String bStep, String bIndent) {
+		replyShape(bStep);
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DriverManager.getConnection(url, user, pw);
+			String query = "delete from mvc_board2 where bId = ?";
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, bName);
+			pstmt.setString(2, bTitle);
+			pstmt.setString(3, bContent);
+			pstmt.setInt(4, Integer.parseInt(bStep) +1 );
+			pstmt.setInt(5, Integer.parseInt(bIndent) +1);
+			int n = pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+		}
+	}
 	private void upHit(String bId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -178,7 +208,7 @@ public class BDao {
 			con = DriverManager.getConnection(url, user, pw);
 			String query = "update mvc_board2 set bHit = bHit + 1 where bId = ?";
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, Integer.parseInt(bId));
+			pstmt.setInt(1, Integer.parseInt(bId));
 			int n = pstmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
