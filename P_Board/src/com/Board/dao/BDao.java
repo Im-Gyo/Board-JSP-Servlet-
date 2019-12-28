@@ -170,6 +170,46 @@ public class BDao {
 		}
 	}
 	
+	public BDto reply_view(String str) {
+		BDto dto = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DriverManager.getConnection(url, user, pw);
+			String query = "select * from mvc_board2 where bId = ?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(str));
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int bId = rs.getInt("bId");
+				String bName = rs.getString("bName");
+				String bTitle = rs.getString("bTitle");
+				String bContent = rs.getString("bContent");
+				Timestamp bDate = rs.getTimestamp("bDate");
+				int bHit = rs.getInt("bHit");
+				int bStep = rs.getInt("bStep");
+				int bIndent = rs.getInt("bIndent");
+				
+				dto = new BDto(bId, bName, bTitle, bContent, bDate, bHit, bStep, bIndent);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();				
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+		}
+		return dto;
+	}
+	
 	public void reply(String bId, String bName, String bTitle, String bContent, String bStep, String bIndent) {
 		replyShape(bStep);
 		
