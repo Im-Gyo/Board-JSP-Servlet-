@@ -1,1 +1,1 @@
-select * from mvc_board2;
+select * from mvc_board2

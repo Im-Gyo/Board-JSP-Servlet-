@@ -14,8 +14,8 @@ public class BDao {
 	PreparedStatement pstmt = null;
 	ResultSet resultSet; */
 	
-	private String url = "jdbc:mysql://localhost:3306/gyodb?useSSL=false&useUnicode=true&characterEncoding=euckr";
-	private String classname = "org.gjt.mm.mysql.Driver";
+	private String url = "jdbc:mysql://localhost:3306/gyodb";
+	private String classname = "com.mysql.jdbc.Driver";
 	private String user = "root";
 	private String pw = "1234";
 	
@@ -60,7 +60,7 @@ public class BDao {
 		
 		try {
 			con = DriverManager.getConnection(url, user, pw);
-			String query = "select bId, bName, bTitle, bContent, bDate, bHit, bStep, bIndent, bStep asc";
+			String query = "select bId, bName, bTitle, bContent, bDate, bHit, bStep, bIndent";
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
 			

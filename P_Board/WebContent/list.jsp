@@ -22,7 +22,7 @@
 			<td>${dto.bId}</td>
 			<td>${dto.Name}</td>
 			<td>
-				<c:forEach begin="1" end="${dto.bIndent}">-</c:forEach>
+				<c:forEach begin="1" end="10">-</c:forEach>
 				<a href="content_view.do?bId=${dto.bId}">${dto.bTitle}</a></td>
 			<td>${dto.bDate}</td>
 			<td>${dto.bHit}</td>
