@@ -240,6 +240,28 @@ public class BDao {
 			}
 		}
 	}
+	public void replyShape(String strStep) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = DriverManager.getConnection(url, user, pw);
+			String query = "update mvc_board2 set bStep = bStep + 1 where bStep > ? ";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(strStep));
+			int n = pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+		}
+	}
 	private void upHit(String bId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;

@@ -14,6 +14,8 @@ import com.Board.Command.BContentCommand;
 import com.Board.Command.BDeleteCommand;
 import com.Board.Command.BListCommand;
 import com.Board.Command.BModifyCommand;
+import com.Board.Command.BReplyCommand;
+import com.Board.Command.BReplyViewCommand;
 import com.Board.Command.BWriteCommand;
 
 /**
