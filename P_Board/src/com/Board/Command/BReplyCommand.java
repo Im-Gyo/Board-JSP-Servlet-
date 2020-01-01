@@ -13,10 +13,11 @@ public class BReplyCommand implements BCommand {
 		String bName = request.getParameter("bName");
 		String bTitle = request.getParameter("bTitle");
 		String bContent = request.getParameter("bContent");
+		String bGroup = request.getParameter("bGroup");
 		String bStep = request.getParameter("bStep");
 		String bIndent = request.getParameter("bIndent");
 		
 		BDao dao = new BDao();
-		dao.reply(bId, bName, bTitle, bContent, bStep, bIndent);
+		dao.reply(bId, bName, bTitle, bContent, bGroup, bStep, bIndent);
 	}
 }

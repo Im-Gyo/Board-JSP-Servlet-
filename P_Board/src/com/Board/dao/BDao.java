@@ -33,7 +33,7 @@ public class BDao {
 		
 		try {	// µ¥ÀÌÅÍ »ðÀÔ
 			con = DriverManager.getConnection(url, user, pw);
-			String query = "insert into mvc_Board2 (bName, bTitle, bContent, bHit, bGroup, bStep, bIndent) values (?,?,?,0,0,0)"; 
+			String query = "insert into mvc_Board2 (bName, bTitle, bContent, bHit, bGroup, bStep, bIndent) values (?,?,?,0, (select max(id)+1 from mvc_board2), 0,0)"; 
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, bName);
 			pstmt.setString(2, bTitle);
@@ -71,10 +71,11 @@ public class BDao {
 				String bContent = rs.getString("bContent");
 				Timestamp bDate = rs.getTimestamp("bDate");
 				int bHit = rs.getInt("bHit");
+				int bGroup = rs.getInt("bGroup");
 				int bStep = rs.getInt("bStep");
 				int bIndent = rs.getInt("bIndent");
 				
-				BDto dto = new BDto(bId, bName, bTitle, bContent, bDate, bHit, bStep, bIndent);
+				BDto dto = new BDto(bId, bName, bTitle, bContent, bDate, bHit, ,bGroup, bStep, bIndent);
 				dtos.add(dto);
 			}
 		} catch (Exception e) {
@@ -205,10 +206,11 @@ public class BDao {
 				String bContent = rs.getString("bContent");
 				Timestamp bDate = rs.getTimestamp("bDate");
 				int bHit = rs.getInt("bHit");
+				int bGroup = rs.getInt("bGroup");
 				int bStep = rs.getInt("bStep");
 				int bIndent = rs.getInt("bIndent");
 				
-				dto = new BDto(bId, bName, bTitle, bContent, bDate, bHit, bStep, bIndent);
+				dto = new BDto(bId, bName, bTitle, bContent, bDate, bHit, bGroup, bStep, bIndent);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -224,7 +226,7 @@ public class BDao {
 		return dto;
 	}
 	
-	public void reply(String bId, String bName, String bTitle, String bContent, String bStep, String bIndent) {
+	public void reply(String bId, String bName, String bTitle, String bContent, String bGroup, String bStep, String bIndent) {
 		replyShape(bStep);
 		
 		Connection con = null;
@@ -232,14 +234,15 @@ public class BDao {
 		
 		try {
 			con = DriverManager.getConnection(url, user, pw);
-			String query = "delete from mvc_board2 where bId = ?";
+			String query = "insert into mvc_borad2 (bId, bName, bTitle, bContent, bGroup, bStep, bIndent) values(?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setString(1, bName);
 			pstmt.setString(2, bTitle);
 			pstmt.setString(3, bContent);
-			pstmt.setInt(4, Integer.parseInt(bStep) +1 );
-			pstmt.setInt(5, Integer.parseInt(bIndent) +1);
+			pstmt.setInt(4, Integer.parseInt(bGroup));
+			pstmt.setInt(5, Integer.parseInt(bStep) +1 );
+			pstmt.setInt(6, Integer.parseInt(bIndent) +1);
 			int n = pstmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -254,14 +257,15 @@ public class BDao {
 			}
 		}
 	}
-	public void replyShape(String strStep) {
+	public void replyShape(String strStep String strGroup) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(url, user, pw);
-			String query = "update mvc_board2 set bStep = bStep + 1 where bStep > ? ";
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, Integer.parseInt(strStep));
+			String query = "update mvc_board2 set bStep = bStep + 1 where bGroup = ? and bStep > ? ";
+			pstmt = con.prepareStatement(query);			
+			pstmt.setInt(1, Integer.parseInt(strGroup));
+			pstmt.setInt(2, Integer.parseInt(strStep));
 			int n = pstmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
