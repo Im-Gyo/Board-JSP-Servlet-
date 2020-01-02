@@ -102,5 +102,4 @@ public class BDto {
 		this.bGroup = bGroup;
 	}
 	
-	
 }
