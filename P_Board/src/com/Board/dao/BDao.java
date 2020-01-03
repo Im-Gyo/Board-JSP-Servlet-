@@ -35,7 +35,7 @@ public class BDao {
 		try {	// 데이터 삽입
 			con = DriverManager.getConnection(url, user, pw);
 			String query = "insert into mvc_Board2 (bName, bTitle, bContent, bHit, bStep, bIndent) values (?,?,?,0,0,0)"; 
-			String query2 = "insert into mvc_Board2 (bGroup) values (select max(bId)+1 from mvc_board2 a)";
+			//String query2 = "insert into mvc_Board2 (bGroup) values (select max(bId)+1 from mvc_board2 a)";
 			pstmt = con.prepareStatement(query);
 			pstmt2 = con.prepareStatement(query2);
 			pstmt.setString(1, bName);
