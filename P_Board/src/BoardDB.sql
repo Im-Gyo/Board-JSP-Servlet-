@@ -1,1 +1,1 @@
-select * from mvc_board2
+select bId, bName, bTitle, bContent, bDate, bHit,bGroup, bStep, bIndent from mvc_board2 order by bGroup desc, bStep asc
