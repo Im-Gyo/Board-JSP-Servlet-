@@ -12,7 +12,7 @@ import com.Board.dto.BDto;
 public class BDao {
 	/* Connection con = null;
 	PreparedStatement pstmt = null;
-	ResultSet resultSet; */
+	ResultSet resultSet; DB 접속  드라이버*/ 
 	
 	private String url = "jdbc:mysql://localhost:3306/gyodb";
 	private String classname = "com.mysql.jdbc.Driver";
