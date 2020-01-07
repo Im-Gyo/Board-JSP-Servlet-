@@ -27,7 +27,7 @@ public class BDao {
 		}		
 	}
 	
-	public void write(String bName, String bTitle, String bContent) {
+	public void write(String bName, String bTitle, String bContent) {	//±Û¾²±â
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
