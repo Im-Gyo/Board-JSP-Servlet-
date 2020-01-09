@@ -59,7 +59,7 @@ public class BDao {
 	}
 	
 	public ArrayList<BDto> list() {
-		
+		//리스트출력
 		ArrayList<BDto> dtos = new ArrayList<BDto>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
