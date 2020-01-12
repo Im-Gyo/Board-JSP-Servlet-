@@ -58,7 +58,7 @@ public class BDao {
 		}
 	}
 	
-	public ArrayList<BDto> list() { //
+	public ArrayList<BDto> list() { 
 		//리스트출력
 		ArrayList<BDto> dtos = new ArrayList<BDto>();
 		Connection con = null;
@@ -99,7 +99,7 @@ public class BDao {
 		return dtos;
 	}
 
-	public BDto contentView(String strID) {
+	public BDto contentView(String strID) { //내용보기
 		upHit(strID);
 		
 		BDto dto = null;
