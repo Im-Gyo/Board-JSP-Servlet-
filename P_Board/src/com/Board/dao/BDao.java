@@ -142,7 +142,7 @@ public class BDao {
 		return dto;
 	}
 	
-	public void modify(String bId, String bName, String bTitle, String bContent) {
+	public void modify(String bId, String bName, String bTitle, String bContent) {	//±Û ¼öÁ¤
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
