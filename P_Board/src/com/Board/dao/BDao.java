@@ -168,7 +168,7 @@ public class BDao {
 		}
 	}
 	
-	public void delete(String bId) {
+	public void delete(String bId) {	//±€ ªË¡¶
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
